@@ -1,0 +1,6 @@
+automake --add-missing
+autoconf
+automake
+./configure --mandir=/usr/share/man
+make
+make install

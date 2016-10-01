@@ -1,0 +1,108 @@
+.Dd October 1, 2016
+.Dt MC_ECHO 8
+.Os
+.An Ic Robin Pq Ic chinese name yanwenze
+.Sh Name
+.Nm mc_echo
+.Nd A echo server
+.Sh SYNOPSIS
+.Nm
+.Op Fl 46cvfugp
+.Op Fl 4 Ar ipv4
+.Op Fl 6 Ar ipv6
+.Op Fl c Ar check version
+.Op Fl v Ar show environment
+.OP Fl f Ar configuration file
+.Op Fl u Ar user
+.Op Fl g Ar group
+.Op Fl p Ar port
+.Sh DESCRIPTION
+.Nm
+is a echo
+server program.
+.Nm
+is designed to be run as a standalone daemon process.
+.Ss Options
+Options become invaild after restart.
+The options are as follows:
+.Bl -tag -width
+.It Fl 4
+Run
+.Nm
+on ipv4.
+.It Fl 6
+Run
+.Nm
+on ipv6.
+.It Fl c
+Check the environment after reading config file and then exit.
+.It Fl v
+Print the Version of
+.Nm
+and then exit.
+.It Fl f Ar configuration file
+onfiguration parameters are read from the specified file
+The default configuration file is 
+.Pa /etc/mc_httpd.conf.
+.It Fl u Ar user
+Set the uid of the process to the specified value. The user name and uid are all acceptable parameters. 
+The priority is higher than user parameter in the configuration file.
+.It Fl g Ar group
+Set the gid of the process to the specified value. The group name and gid are all acceptable parameters. 
+The priority is higher than group parameter in the configuration file.
+.It Fl p Ar port
+Specify the port number. 
+The priority is higher than port parameter in the configuration file.
+.El
+.Ss Configuration File
+Comments can appear anywhere. There is a sample in doc directory.
+The configuration parameters are as follows:
+.It 
+.Ic rootpath
+.D1 Specify a directory as the ServerRoot of the program. 
+.It 
+.Ic ipversion
+.D1 Specify ip version.
+.It
+.Ic maxprocess
+.D1 The maximum processes to deal request.
+.It
+.Ic maxrequests
+.D1 The maximum requests a deal process can deal.
+.It
+.Ic port
+.D1 Specify port number. 
+.It
+.Ic backlog
+.D1 Specifies the backlog value of the listen function. 
+.It
+.Ic upperthreshold
+.D1 scheduling parameter.
+.It 
+.Ic lowerthreshold
+.D1 scheduling parameter.
+.It 
+.Ic cycletime
+.D1 cycle time for scheduling.
+.It
+.Ic user
+.D1 Set the uid of the process to the specified value. The user name and uid are all acceptable parameters. 
+.It
+.Ic group 
+.D1 Set the gid of the process to the specified value. The group name and gid are all acceptable parameters. 
+.It
+.Ic logfile
+.D1 Server log file.
+.Sh Signal
+.It
+.Ic SIGTGERM 
+.D1 KILL the server process gracefully.
+.It
+.Ic SIGHUP
+.D1 Restart the server process. 
+.Sh EXAMPLES
+mc_echo -f tmp/etc/mc_echo.conf
+.Sh AUTHOR
+.Ic Robin Pq Ic chinese name yanwenze
+.Sh BUGS
+If you find any bugs or have any suggestions, please don't hesitate to contact with me. My email is nnsmgsone@gmail.com.
