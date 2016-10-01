@@ -1,0 +1,46 @@
+基本信息:
+	name:	MC_ECHO
+	author: 颜文泽(robin)
+	revision: 0.9
+
+INSTALL:
+	服务器运行于unix和类unix系统，程序的正确运行依赖于共享内存库
+	Installation Steps:	
+		1. cd	mc_server/mc_echo/0.9
+		2. ./configure --mandir=/usr/share/man	
+		3. make
+		4. su root
+		5. make install
+
+功能:
+	服务器单纯的回送客户端发送的内容，服务器不会主动关闭连接
+
+命令行参数: 命令行参数优于配置文件中的设置，另外由于命令行参数在重启后直接失效，所以除了-f选项，其他命令行参数都不建议使用
+	-4: 服务器进程以ipv4运行
+	-6: 服务器进程以ipv6运行
+		注: 如果命令行参数和配置文件都不指定协议，则服务器会自行选择，ubuntu12.04为ipv4，freebsd9.1为ipv6
+	-c: 服务器进程将会测试用户环境然后输出结果 。服务器不会实际工作
+	-v: 输出服务器的版本信息。服务器不会实际工作
+	-f: 指定服务器的配置文件路径(默认为/etc/mc_echo.conf)。因为重启后命令行参数失效，所以重启之后服务器的配置文件路径为/etc/mc_echo.conf，
+	    然而因为服务器的根目录发生了变化，所以重启后读取的配置文件的路径为tmp/etc/mc_echo.conf(tmp为服务器的工作目录)，所以为了保证重启前后
+	    读取的配置文件是同一个，命令行参数为mc_echo -f tmp/etc/mc_echo.conf
+	-u: 指定服务器进程的uid，用户名和uid都是可以接受的
+	-g: 指定服务器进程的gid，组名和gid都是可以接受的
+	-p: 指定端口号
+
+配置文件参数: doc目录下有配置文件的样本，用户可以参考
+	rootpath: 指定服务器的工作目录
+	port: 	指定端口号
+	user: 	指定服务器进程的uid，用户名和uid都是可以接受的
+	group: 	指定服务器进程的gid，组名和gid都是可以接受的
+	ipversion: 指定ip版本
+	logfile: 指定服务器的日志文件
+	maxprocesses: 服务器进程能创建的处理进程的最大数目
+	maxrequests: 处理进程最大能处理的请求数目
+	upperthreshold: 处理进程的处理上限阈值，该值用于调度进程调度处理进程
+	lowerthreshold: 处理进程的处理下限阈值，该值用于调度进程调度处理进程
+	processcreat:	主进程预创建的进程，处理进程的数目不会小于该值
+	cycletime:	调度进程的调度周期，单位为秒
+
+pid文件:
+	pid文件位于/etc/run/mc_echo.pid，mc_echo只会更新该文件不会删除该文件。
