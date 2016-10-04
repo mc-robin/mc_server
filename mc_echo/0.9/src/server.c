@@ -381,13 +381,15 @@ mc_init_mem(void)
 	len = mc_startup->s_schd.maxproc * MC_CHILDREN_SIZE; 
 	if((p = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANON, -1, 0)) == MAP_FAILED){ 
 		if((fd = open("/dev/zero", O_RDWR)) == -1){
-			munmap(p, sizeof(sem_t)); 	
+			sem_destroy(mc_startup->s_lock.key);
+			munmap(mc_startup->s_lock.key, sizeof(sem_t)); 	
 			munmap(mc_startup->s_creatreq, sizeof(int));
 			return -1;
 		}
 		if((p = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0)) == MAP_FAILED){
 			close(fd);
-			munmap(p, sizeof(sem_t)); 	
+			sem_destroy(mc_startup->s_lock.key);
+			munmap(mc_startup->s_lock.key, sizeof(sem_t)); 	
 			munmap(mc_startup->s_creatreq, sizeof(int));
 			return -1;
 		}	

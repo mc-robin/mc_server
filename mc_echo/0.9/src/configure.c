@@ -52,7 +52,7 @@ mc_deal_arg(int argc, char *argv[])
 			case 'u':
 			case 'U':
 				s++;
-				if((mc_startup->s_uid = mc_get_uid(argv[i + s])))
+				if(!(mc_startup->s_uid = mc_get_uid(argv[i + s])))
 					goto err;
 				break;
 			case 'g':
