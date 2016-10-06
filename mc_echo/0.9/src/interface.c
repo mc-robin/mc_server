@@ -517,7 +517,6 @@ mc_event_epoll_add(mc_event p, int fd, int flags)
 	if(fd < 0 || fd >= p->maxfds)
 		return -1;
 	mc_memset(&event, 0, sizeof(event));
-	event.events = EPOLLET;
 	if(flags & MC_EVENT_IN)
 		event.events |= EPOLLIN;	
 	if(flags & MC_EVENT_OUT)
@@ -538,7 +537,6 @@ mc_event_epoll_del(mc_event p, int fd, int flags)
 	if(fd < 0 || fd >= p->maxfds)
 		return -1;
 	mc_memset(&event, 0, sizeof(event));
-	event.events = EPOLLET;
 	if(flags & MC_EVENT_IN)
 		event.events |= EPOLLIN;
 	if(flags & MC_EVENT_OUT)
