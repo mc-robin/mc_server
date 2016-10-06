@@ -559,7 +559,7 @@ mc_event_epoll_traverse(mc_event p, mc_pollfd pollp)
 	if(p->offset < p->events){
                 ep = &p->fds[p->offset++];
 		pollp->fd = ep->data.fd;
-                if(ep->events & (EPOLLOUT | EPOLLERR)){
+                if(ep->events & (EPOLLHUP | EPOLLERR)){
                         pollp->revents = MC_EVENT_ERR;
                 }else if(ep->events & EPOLLIN){
                         pollp->revents = MC_EVENT_IN;
