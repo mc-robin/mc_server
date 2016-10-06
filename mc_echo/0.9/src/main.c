@@ -124,7 +124,7 @@ int
 main(int argc, char *argv[])
 {
 	char	*p;
-	int	fd;
+	int	i, fd;
 	socklen_t       addrlen;
         struct sockaddr_storage addr;
 
@@ -146,6 +146,8 @@ main(int argc, char *argv[])
                 	mc_free_startup();
                 	mc_err("Error %u: failed to get socket file descriptor for listening: %s\n", getpid(), strerror(errno));
         	}
+		for(i = 0; i < mc_startup->s_schd.procs; i++)
+                	mc_creat_child();
 		for( ; ; ){ /* 无限循环，父进程不断的接受请求 */
 			addrlen = sizeof(addr);
 			if((fd = mc_accept(mc_listenfd, MC_SA(&addr), &addrlen)) > 0 && mc_send_fd(fd) == -1){ 

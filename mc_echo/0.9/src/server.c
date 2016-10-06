@@ -247,8 +247,6 @@ out:
 	default:
 		break;
 	}	
-	for(i = 0; i < mc_startup->s_schd.procs; i++)
-		mc_creat_child();
 }
 
 int
