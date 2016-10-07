@@ -142,10 +142,12 @@ main(int argc, char *argv[])
 		if(mc_startup->s_check)
 			mc_check_environment();
 		mc_set_startup(); 
-		if((mc_listenfd = mc_get_sockfd(mc_startup->s_domain, SOCK_STREAM, 0)) == -1){
+		if(!mc_restart && (mc_listenfd = mc_get_sockfd(mc_startup->s_domain, SOCK_STREAM, 0)) == -1){
                 	mc_free_startup();
                 	mc_err("Error %u: failed to get socket file descriptor for listening: %s\n", getpid(), strerror(errno));
         	}
+		if(mc_restart)
+			mc_restart = 0;
 		for(i = 0; i < mc_startup->s_schd.procs; i++)
                 	mc_creat_child();
 		for( ; ; ){ /* 无限循环，父进程不断的接受请求 */

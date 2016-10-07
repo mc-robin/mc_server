@@ -182,7 +182,7 @@ mc_daemon(void)
                         mc_err("Error %u: failed to creat a new session: %s\n", getpid(), strerror(errno));
 		}
 	}
-	for(i = mc_restart ? 3 : 0; i < mc_startup->s_schd.maxfds; i++) 
+	for(i = (mc_restart ? 4 : 0); i < mc_startup->s_schd.maxfds; i++) 
                 mc_close(i);
 	if(mc_restart)	
 		goto out;	
@@ -234,8 +234,6 @@ mc_daemon(void)
 		mc_err("Error: failed to init signal\n");
 	}
 out:
-	if(mc_restart)
-		mc_restart = 0;
 	switch((mc_schdid = fork())){
 	case -1:
 		mc_free_startup();
@@ -271,15 +269,19 @@ mc_send_fd(int fd)
 		}
 	}	
 	if(m == -1){
-		for(i = 0; i < mc_startup->s_schd.maxproc && mc_startup->s_children[i].fd >= 0; i++) 
-			;
-		mc_unlock();
-		if(i == mc_startup->s_schd.maxproc){
-			if((i = mc_creat_child()) == -1) 
-				return -1;
-		}else
-			mc_startup->s_children[i].fd *= -1; 
-		m = i;
+		n = mc_startup->s_schd.maxfds;
+                for(i = 0; i < mc_startup->s_schd.maxproc; i++){
+                        if(mc_startup->s_children[i].fd < 0 && mc_startup->s_children[i].cnt < n){
+                                m = i;
+                                n = mc_startup->s_children[i].cnt;
+                        }
+                }
+                mc_unlock();
+                if(m == -1){
+                        if((m = mc_creat_child()) == -1)
+                                return -1;
+                }else
+                        mc_startup->s_children[i].fd *= -1;
 	}else
 		mc_unlock();
 	msg.msg_control = control;

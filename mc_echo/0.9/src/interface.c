@@ -690,6 +690,7 @@ mc_event_poll_add(mc_event p, int fd, int flags)
 	if(fd < 0 || fd >= p->maxfds)
 		return -1;
 	pp = &p->fds[p->nfds++];
+	pp->events = 0;
 	if(flags & MC_EVENT_IN)
 		pp->events |= POLLIN;
 	if(flags & MC_EVENT_OUT)
@@ -712,7 +713,7 @@ mc_event_poll_del(mc_event p, int fd, int flags)
 		return -1;
 	--p->nfds;
 	if(i < p->nfds)
-		memmove(&p->fds[i], &p->fds[i + 1], p->nfds - i);	
+		memmove(&p->fds[i], &p->fds[i + 1], (p->nfds - i) * sizeof(*p->fds));	
 	return 0;
 }
 
