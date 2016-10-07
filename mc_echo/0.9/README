@@ -37,5 +37,13 @@
 pid文件:
         pid文件位于/etc/run/mc_echo.pid，mc_echo只会更新该文件不会删除该文件。
 
+示例:
+	mc_echo -f tmp/etc/mc_echo.conf
+		-f指定配置文件路径，服务器重启后命令行参数失效，所以会直接读取默认的路径/etc/mc_echo.conf，由于服务器的根目录改变，所以此处
+		读取的配置文件就是命令行参数指定的tmp/etc/mc_echo.conf
+
+测试:
+	程序在linux环境能正常运行
+
 BUGS:
 	0.9暂时存在很多问题，期待慢慢改进

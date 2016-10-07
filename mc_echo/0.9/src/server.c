@@ -62,14 +62,15 @@ mc_add_request(void)
 	msg.msg_name = NULL;
 	msg.msg_namelen = 0;
 	msg.msg_control = control;
-	msg.msg_controllen = CMSG_SPACE(sizeof(int));
+	msg.msg_controllen = CMSG_LEN(sizeof(int));
 	if(mc_recvmsg(mc_recvfd, &msg, 0) <= 0)
 		return -1;
 	if((ptr = CMSG_FIRSTHDR(&msg)) != NULL && ptr->cmsg_len == CMSG_LEN(sizeof(int))){
 		if(ptr->cmsg_level != SOL_SOCKET || ptr->cmsg_type != SCM_RIGHTS)
 			return -1;
 		fd = *((int *)CMSG_DATA(ptr));
-	}
+	}else
+		return -1;
 	if(mc_evp->add(mc_evp, fd, MC_EVENT_IN) == -1){
 		mc_close(fd);
 		return -1;
@@ -285,7 +286,7 @@ mc_send_fd(int fd)
 	}else
 		mc_unlock();
 	msg.msg_control = control;
-	msg.msg_controllen = CMSG_SPACE(sizeof(int));
+	msg.msg_controllen = CMSG_LEN(sizeof(int));
 	iov[0].iov_len = 1;
 	iov[0].iov_base = buf;
 	msg.msg_name = NULL;
