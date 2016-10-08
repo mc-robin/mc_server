@@ -171,6 +171,7 @@
 #endif
 
 #define MC_FILE_MODE	0666
+
 #if (HAVE_KQUEUE && HAVE_SYS_EVENT_H)
 #define MC_USE_KQUEUE	1
 #include	<sys/event.h>
