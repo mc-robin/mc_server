@@ -132,6 +132,9 @@ mc_deal_client(mc_children chp)
 	struct mc_pollfd	pollfd;
 
 	mc_request_info = chp;
+	for(i = mc_listenfd; i < mc_startup->s_schd.maxfds; i++) /* mc_listenfd == 4 */
+		if(i != mc_recvfd)
+			mc_close(i);
         if(mc_init_sig(1) == -1) 
                 mc_err("Error %u: failed to init singal for treatment process\n", getpid());
         if((mc_evp = mc_init_event(mc_startup->s_schd.maxfds)) == NULL)
