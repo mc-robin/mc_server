@@ -386,7 +386,7 @@ mc_show_version(void)
 static inline void
 usage(void)
 {
-        fprintf(stderr, "Usage: mc_talkd [-46cCvV] [-fF configuration file] [-gG group] [-uU user] [-pP port]\n");
+        fprintf(stderr, "Usage: mc_echo [-46cCvV] [-fF configuration file] [-gG group] [-uU user] [-pP port]\n");
 }
 
 int	mc_lock(void);
