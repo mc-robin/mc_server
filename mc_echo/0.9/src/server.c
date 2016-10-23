@@ -142,7 +142,7 @@ mc_deal_client(mc_children chp)
         if(mc_evp->add(mc_evp, mc_recvfd, MC_EVENT_IN) == -1)
                 mc_err("Error %u: failed to add listen file descriptor to event system\n", getpid());
         for( ; ; ){
-                if((n = mc_evp->poll(mc_evp, -1)) == -1)
+                if((n = mc_evp->poll(mc_evp, -1)) <= 0)
                         continue;
                 for(i = 0; i < n; i++){ 
                         if(mc_evp->traverse(mc_evp, &pollfd) == 0)

@@ -1,0 +1,85 @@
+autoscan: warning: missing AC_CHECK_FUNCS([alarm]) wanted by: 
+	src/main.c:137
+	src/sig.c:46
+autoscan: warning: missing AC_CHECK_FUNCS([memchr]) wanted by: 
+	src/interface.c:163
+autoscan: warning: missing AC_CHECK_FUNCS([munmap]) wanted by: 
+	src/server.c:292
+	src/server.h:372
+	src/server.h:374
+	src/server.h:376
+	src/server.h:379
+autoscan: warning: missing AC_CHECK_FUNCS([socket]) wanted by: 
+	src/server.c:339
+autoscan: warning: missing AC_CHECK_FUNCS([strcspn]) wanted by: 
+	src/interface.c:269
+autoscan: warning: missing AC_CHECK_FUNCS([strerror]) wanted by: 
+	src/server.c:159
+	src/server.c:164
+	src/server.c:203
+	src/server.c:208
+	src/server.c:213
+	src/server.c:229
+	src/server.c:243
+	src/main.c:97
+	src/main.c:103
+	src/configure.c:157
+	src/sig.c:235
+	src/sig.c:239
+	src/sig.c:244
+	src/sig.c:248
+	src/sig.c:252
+	src/sig.c:256
+	src/sig.c:260
+	src/sig.c:264
+	src/sig.c:268
+	src/sig.c:272
+	src/sig.c:276
+	src/sig.c:291
+	src/sig.c:308
+	src/sig.c:326
+	src/sig.c:342
+autoscan: warning: missing AC_CHECK_FUNCS([strndup]) wanted by: 
+	src/interface.c:235
+autoscan: warning: missing AC_CHECK_FUNCS([strpbrk]) wanted by: 
+	src/interface.c:289
+autoscan: warning: missing AC_CHECK_FUNCS([strspn]) wanted by: 
+	src/interface.c:251
+autoscan: warning: missing AC_CHECK_FUNCS([strstr]) wanted by: 
+	src/interface.c:308
+autoscan: warning: missing AC_CHECK_HEADERS([arpa/inet.h]) wanted by: 
+	src/server.h:31
+autoscan: warning: missing AC_CHECK_HEADERS([fcntl.h]) wanted by: 
+	src/server.h:23
+autoscan: warning: missing AC_CHECK_HEADERS([locale.h]) wanted by: 
+	src/server.h:13
+autoscan: warning: missing AC_CHECK_HEADERS([netdb.h]) wanted by: 
+	src/server.h:24
+autoscan: warning: missing AC_CHECK_HEADERS([netinet/in.h]) wanted by: 
+	src/server.h:32
+autoscan: warning: missing AC_CHECK_HEADERS([sys/time.h]) wanted by: 
+	src/server.h:97
+	src/server.h:101
+autoscan: warning: missing AC_C_INLINE wanted by: 
+	src/server.h:362
+	src/server.h:385
+	src/server.h:393
+autoscan: warning: missing AC_FUNC_FORK wanted by: 
+	src/server.c:157
+	src/server.c:241
+autoscan: warning: missing AC_FUNC_MALLOC wanted by: 
+	src/interface.c:224
+	src/interface.c:239
+	src/interface.c:352
+	src/interface.c:361
+	src/interface.c:377
+	src/interface.c:393
+	src/interface.c:405
+	src/configure.c:14
+autoscan: warning: missing AC_TYPE_SSIZE_T wanted by: 
+	src/server.h:460
+	src/server.h:461
+	src/sig.c:196
+	src/sig.c:199
+	src/sig.c:207
+	src/sig.c:210
