@@ -3,7 +3,6 @@
 
 #include	"mc.h"
 
-#if 0
 #if (HAVE_KQUEUE && HAVE_SYS_EVENT_H)
 #define MC_USE_KQUEUE	1
 #include	<sys/event.h>
@@ -18,9 +17,6 @@
 #else
 #define MC_NONE_IO	1
 #endif 
-#endif
-
-#define MC_USE_POLL 	1
 
 #if HAVE_POLL_H
 #include	<poll.h>

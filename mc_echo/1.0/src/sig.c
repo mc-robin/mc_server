@@ -46,9 +46,6 @@ static void
 mc_killchildren(int signum)
 {
 	mc_quit = 1;
-#if 0 
-	mc_warn("Debug %u: kill children\n");
-#endif
 }
 
 static void

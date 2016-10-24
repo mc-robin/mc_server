@@ -293,9 +293,6 @@ main(int argc, char *argv[])
 					p = mc_print_ip(MC_SA(&addr)));
 				free(p);
 			}
-#if 0 
-			mc_warn("Debug %u: accept: fd = %d, quit = %d, restart = %d\n", getpid(), fd, mc_quit, mc_restart);
-#endif
 			switch(fd){
 			case -1:
 				if(errno != EINTR || !(mc_quit || mc_restart))

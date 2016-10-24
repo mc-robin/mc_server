@@ -46,9 +46,6 @@ mc_add_request(void)
 		mc_close(fd);
 		return -1;
 	}
-#if 0 
-	mc_warn("Debug %u: recv %d\n", getpid(), fd);
-#endif
 	mc_lock();	
 	mc_request_info->c_cnt++;
 	mc_unlock();
@@ -72,9 +69,6 @@ mc_del_request(int fd)
 	}else
 		mc_close(fd);
 	mc_request_info->c_cnt--;
-#if 0 
-	mc_warn("Debug %u: delete %d\n", getpid(), fd);
-#endif
 	if(mc_request_info->c_cnt == 0 && mc_request_info->c_fd < 0){ 
 		mc_unlock();
 		exit(0);
@@ -89,9 +83,6 @@ mc_deal_request(const mc_pollfd pfp)
 	int	n;
 	char	buf[BUFSIZ];
 
-#if 0 
-	mc_warn("Debug %u: deal %d , revents = %d: recvfd = %d\n", getpid(), pfp->fd, pfp->revents, mc_recvfd);
-#endif
 	switch(pfp->revents){
 	case MC_EVENT_IN:
 		if(pfp->fd == mc_recvfd)
@@ -339,9 +330,6 @@ mc_send_fd(int fd)
 	ptr->cmsg_level = SOL_SOCKET;
 	ptr->cmsg_type = SCM_RIGHTS;
 	*((int *)CMSG_DATA(ptr)) = fd;
-#if 0 
-	mc_warn("Debug %u: send fd %d to process %u\n", getpid(), fd, mc_startup->s_childprocs[m].c_pid);
-#endif
 	return mc_sendmsg(mc_startup->s_childprocs[m].c_fd, &msg, 0); 
 }
 
