@@ -39,11 +39,19 @@ mc_add_request(void)
 				SSL_free(mc_ssl[fd]);
 				mc_ssl[fd] = NULL;	
 			}
+			mc_close(fd);
 			return -1;
 		}
 	}
 	if(mc_evp->add(mc_evp, fd, MC_EVENT_IN) == -1){
-		mc_close(fd);
+		if(mc_startup->s_usessl){
+			shutdown(fd, 1);
+                	SSL_shutdown(mc_ssl[fd]);
+                	mc_close(fd);
+                	SSL_free(mc_ssl[fd]);
+                	mc_ssl[fd] = NULL;
+		}else
+			mc_close(fd);
 		return -1;
 	}
 	mc_lock();	
