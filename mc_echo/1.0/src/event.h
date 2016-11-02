@@ -12,17 +12,12 @@
 #elif (HAVE_SYS_DEVPOLL_H && defined (__sun))
 #define MC_USE_DEVPOLL	1	
 #include	<sys/devpoll.h>
-#elif (HAVE_POLL && (HAVE_SYS_POLL_H || POLL_H))
+#elif (HAVE_POLL && HAVE_POLL_H)
 #define MC_USE_POLL	1	
+#include	<poll.h>
 #else
 #define MC_NONE_IO	1
 #endif 
-
-#if HAVE_POLL_H
-#include	<poll.h>
-#else
-#include	<sys/poll.h>
-#endif
 
 #ifndef MC_EVENT_IN
 #define MC_EVENT_IN	1	
