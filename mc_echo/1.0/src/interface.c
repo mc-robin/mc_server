@@ -402,7 +402,7 @@ mc_event_devpoll_add(mc_event p, int fd, int flags)
 {
 	struct pollfd	event;
 
-	if(fd < 0 || fd >= p->maxfds)
+	if(p->nfds >= p->maxfds)
 		return -1;
 	mc_memset(&event, 0, sizeof(event));
 	event.fd = fd;
@@ -421,8 +421,6 @@ mc_event_devpoll_del(mc_event p, int fd, int flags)
 {
 	struct pollfd	event;
 
-	if(fd < 0 || fd >= p->maxfds)
-		return -1;
 	mc_memset(&event, 0, sizeof(event));
 	event.fd = fd;
 	event.events = POLLREMOVE;	
@@ -494,7 +492,7 @@ mc_event_epoll_add(mc_event p, int fd, int flags)
 {
 	struct epoll_event	event;	
 
-	if(fd < 0 || fd >= p->maxfds)
+	if(p->nfds >= p->maxfds)
 		return -1;
 	mc_memset(&event, 0, sizeof(event));
 	if(flags & MC_EVENT_IN)
@@ -514,8 +512,6 @@ mc_event_epoll_del(mc_event p, int fd, int flags)
 {
 	struct epoll_event	event;
 
-	if(fd < 0 || fd >= p->maxfds)
-		return -1;
 	mc_memset(&event, 0, sizeof(event));
 	if(flags & MC_EVENT_IN)
 		event.events |= EPOLLIN;
@@ -585,7 +581,7 @@ mc_event_kqueue_add(mc_event p, int fd, int flags)
 	struct timespec ts;
 	struct kevent	tm[2];
 
-	if(fd < 0 || fd >= p->maxfds)
+	if(p->nfds >= p->maxfds)
 		return -1;
 	n = 0;
 	if(flags & MC_EVENT_IN) 
@@ -607,8 +603,6 @@ mc_event_kqueue_del(mc_event p, int fd, int flags)
 	struct timespec	ts;
 	struct kevent	tm[2];
 
-	if(fd < 0 || fd >= p->maxfds)
-		return -1;
 	n = 0;
 	if(flags & MC_EVENT_IN)
 		EV_SET(&tm[n++], fd, EVFILT_READ, EV_DELETE, 0, 0, NULL);
@@ -671,7 +665,7 @@ mc_event_poll_add(mc_event p, int fd, int flags)
 	int	i;
 	struct pollfd 	*pp;
 
-	if(fd < 0 || fd >= p->maxfds)
+	if(p->nfds >= p->maxfds)
 		return -1;
 	pp = &p->fds[p->nfds++];
 	pp->events = 0;
@@ -689,8 +683,6 @@ mc_event_poll_del(mc_event p, int fd, int flags)
 {
 	int	i;
 
-	if(fd < 0 || fd >= p->maxfds)
-		return -1;
 	for(i = 0; i < p->nfds && p->fds[i].fd != fd; i++)
 		;
 	if(i == p->nfds)
